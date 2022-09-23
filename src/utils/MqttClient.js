@@ -1,10 +1,9 @@
 import initialize from '../../MqttLib';
 
 initialize();
-
 class MqttClient {
   constructor() {
-    const clientId = 'Test';
+    const clientId = 'ReactNativeMqtt';
     this.client = new Paho.MQTT.Client('127.0.0.1', 9001, clientId);
     this.client.onMessageArrived = this.onMessageArrived;
     this.callbacks = {};
@@ -38,11 +37,11 @@ class MqttClient {
   onError = ({errorMessage}) => {
     console.info(errorMessage);
     this.isConnected = false;
-    Alert.alert('Could not connect to MQTT');
   };
 
   onMessageArrived = message => {
     const {payloadString, topic} = message;
+    console.log('onMessageArrived:', payloadString);
     this.callbacks[topic](payloadString);
   };
 
@@ -68,7 +67,6 @@ class MqttClient {
       console.info('not connected');
       return;
     }
-
     delete this.callbacks[topic];
     this.client.unsubscribe(topic);
   };
