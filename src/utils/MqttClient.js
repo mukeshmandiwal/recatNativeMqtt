@@ -35,7 +35,7 @@ class MqttClient {
   };
 
   onError = ({errorMessage}) => {
-    console.info(errorMessage);
+    console.log(errorMessage);
     this.isConnected = false;
   };
 
@@ -46,27 +46,15 @@ class MqttClient {
   };
 
   onPublish = (topic, message) => {
-    if (!this.isConnected) {
-      console.info('not connected');
-      return;
-    }
     this.client.publish(topic, message);
   };
 
   onSubscribe = (topic, callback) => {
-    if (!this.isConnected) {
-      console.info('not connected');
-      return;
-    }
     this.callbacks[topic] = callback;
     this.client.subscribe(topic);
   };
 
   unsubscribe = topic => {
-    if (!this.isConnected) {
-      console.info('not connected');
-      return;
-    }
     delete this.callbacks[topic];
     this.client.unsubscribe(topic);
   };
