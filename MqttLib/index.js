@@ -1,15 +1,15 @@
 Object.defineProperty(exports, '__esModule', {value: true});
 require('./mqttLib');
-const myStorage = {
+const storage = {
   setItem: (key, item) => {
-    myStorage[key] = item;
+    storage[key] = item;
   },
-  getItem: key => myStorage[key],
+  getItem: key => storage[key],
   removeItem: key => {
-    deletemyStorage[key];
+    delete storage[key];
   },
 };
 function initialize() {
-  global.localStorage = myStorage;
+  global.localStorage = storage;
 }
 exports.default = initialize;
