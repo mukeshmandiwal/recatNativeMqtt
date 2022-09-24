@@ -1,4 +1,4 @@
-import initialize from '../../MqttLib';
+import initialize from '../../lib';
 
 initialize();
 class MqttClient {
