@@ -1,3 +1,4 @@
+import { Alert } from 'react-native';
 import initialize from '../../lib';
 
 initialize();
@@ -37,6 +38,21 @@ class MqttClient {
   onError = ({errorMessage}) => {
     console.log(errorMessage);
     this.isConnected = false;
+    Alert.alert('Failed', 'Failed to connect to MQTT', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {
+        text: 'Try Again',
+        onPress: () =>
+          this.onConnect(
+            this.onSuccessHandler,
+            this.onConnectionLostHandler,
+          ),
+      },
+    ]);
   };
 
   onMessageArrived = message => {
